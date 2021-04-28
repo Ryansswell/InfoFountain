@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const { Post, User } = require('../models');
-// const withAuth = require('../utils/auth');
+const withAuth = require('../utils/auth');
+
+
+// ####################### Get All Posts #############################
+// ####################### Get All Posts #############################
+// ####################### Get All Posts #############################
 
 router.get('/', async (req, res) => {
   try {
@@ -25,6 +30,11 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+// ####################### Get All Posts by ID #############################
+// ####################### Get All Posts by ID #############################
+// ####################### Get All Posts by ID #############################
+
 router.get('/posts/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -35,9 +45,7 @@ router.get('/posts/:id', async (req, res) => {
         },
       ],
     });
-
     const post = postData.get({ plain: true });
-
     res.render('singlepost', {
       post,
       logged_in: req.session.logged_in,
@@ -47,19 +55,57 @@ router.get('/posts/:id', async (req, res) => {
   }
 });
 
+
+// ####################### Get Login Page #############################
+// ####################### Get Login Page #############################
+// ####################### Get Login Page #############################
+
+router.get('/login', (req, res) => {
+  // If a session exists, redirect the request to the user's portal page
+  if (req.session.logged_in) {
+    res.redirect('/portal');
+    return;
+  }
+
+  res.render('login');
+});
+
+
+// ####################### Get User's Portal Page #############################
+// ####################### Get User's Portal Page #############################
+// ####################### Get User's Portal Page #############################
+
+router.get('/portal', async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    // const userData = await User.findByPk(req.session.user_id, {
+    const userData = await User.findByPk(1, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
+    const user = userData.get({ plain: true });
+    res.render('portal', {
+      user,
+      // logged_in: true,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Use withAuth middleware to prevent access to route
-// router.get('/profile', withAuth, async (req, res) => {
+// router.get('/portal', async (req, res) => {
 //   try {
 //     // Find the logged in user based on the session ID
 //     const userData = await User.findByPk(req.session.user_id, {
 //       attributes: { exclude: ['password'] },
-//       include: [{ model: Project }],
+//       include: [{ model: Post }],
 //     });
 
 //     const user = userData.get({ plain: true });
 
-//     res.render('profile', {
-//       ...user,
+//     res.render('portal', {
+//       user,
 //       logged_in: true,
 //     });
 //   } catch (err) {
@@ -67,14 +113,6 @@ router.get('/posts/:id', async (req, res) => {
 //   }
 // });
 
-// router.get('/login', (req, res) => {
-//   // If the user is already logged in, redirect the request to another route
-//   if (req.session.logged_in) {
-//     res.redirect('/profile');
-//     return;
-//   }
 
-//   res.render('login');
-// });
 
 module.exports = router;
