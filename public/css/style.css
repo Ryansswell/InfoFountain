@@ -18,8 +18,22 @@ header,
   text-decoration: underline;
 }
 
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
+.btn btn-primary1 {
+  display: flex;
+  color: blue;
+  position: absolute;
+  right: 0;
+}
+
+.jumbotron {
+  background: rgb(7, 61, 7);
+  color: white;
+}
+
+body {
+  background-image: './images/pexels-pixabay-36717.jpg';
+}
+
+.form-row {
+  color: white;
 }
