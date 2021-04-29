@@ -37,3 +37,7 @@ body {
 .form-row {
   color: white;
 }
+
+.invalid-feedback {
+  color: white;
+}
