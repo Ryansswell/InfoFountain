@@ -6,10 +6,10 @@
    
   </div>
   <div class="col-md-7">
-    <p>
-      {{post.title}}
-      {{post.post_text}}
-    </p>
+    <p>{{post.title}}</p>
+      <p>{{post.post_text}}</p>
+       
+      <p> By: {{post.user.username}}</p>
   </div>
 </div>
 {{/each}}
