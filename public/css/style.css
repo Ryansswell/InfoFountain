@@ -41,3 +41,7 @@ body {
 .invalid-feedback {
   color: white;
 }
+
+.form-check-label {
+  color: white;
+}
