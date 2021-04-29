@@ -59,6 +59,7 @@ router.post('/login', async (req, res) => {
   try {
     // First we find one user record with an email address that matches the one provided by the user logging in
     const userData = await User.findOne({ where: { email: req.body.email } });
+    console.log(userData);
     // If an account with that email address doesn't exist, the user will recieve an error message
     if (!userData) {
       res
@@ -69,9 +70,13 @@ router.post('/login', async (req, res) => {
     // If the user does exist, we will use the checkPassword() instance method to compare the user's input to the password stored in the record
     const validPassword = await userData.checkPassword(req.body.password);
     // If checkPassword() evaluates as false, the user will receive an error message
+    console.log(userData.password);
+    console.log(req.body.password);
+    console.log(validPassword);
+
     if (!validPassword) {
       res
-        .status(400)
+        .status(404)
         .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
