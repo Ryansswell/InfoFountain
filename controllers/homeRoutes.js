@@ -37,16 +37,8 @@ router.get('/', async (req, res) => {
 
 router.get('/login', (req, res) => {
   // If a session exists, redirect the request to the user's portal page
-
-
-
   res.render('login');
 });
-
-
-
-
-
 
 // // Use withAuth middleware to prevent access to route
 // router.get('/portal', async (req, res) => {
