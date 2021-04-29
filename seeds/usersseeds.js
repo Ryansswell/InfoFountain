@@ -22,9 +22,9 @@ const userData = [
     password: 'pa$$word4',
   },
   {
-    "username": "ryan",
-    "email": "Ryan@email.com",
-    "password": "password12345"
+    username: 'shaggy',
+    email: 'shaggy@shaggysemail.com',
+    password: 'pa$$word4',
   }
 ];
 
