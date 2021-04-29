@@ -1,0 +1,18 @@
+<!-- Loop over each object in the projects array -->
+      <h1>Get All Users Page!</h1>
+{{#each users as |user| }}
+<div class="row mb-4 project">
+  <div class="col-md-5">
+   
+  </div>
+  <div class="col-md-7">
+    <p>{{user.username}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.password}}</p>
+    <p>{{user.user_text}}</p>
+    <p> By: {{user.post.title}}</p>
+  </div>
+</div>
+{{/each}}
+
+
