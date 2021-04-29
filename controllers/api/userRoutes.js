@@ -40,7 +40,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const newUser = req.body;
-        newUser.password = await bcrypt.hash(req.body.password, 10);
         const userData = await User.create(newUser);
 
         // Set up sessions with a 'loggedIn' variable set to `true`
@@ -67,20 +66,18 @@ router.post('/login', async (req, res) => {
         // If an account with that email address doesn't exist, the user will recieve an error message
         if (!userData) {
             res
-                .status(400)
+                .status(401)
                 .json({ message: 'Incorrect email or password, please try again' });
             return;
         }
         // If the user does exist, we will use the checkPassword() instance method to compare the user's input to the password stored in the record
         const validPassword = await userData.checkPassword(req.body.password);
         // If checkPassword() evaluates as false, the user will receive an error message
-        console.log(userData.password);
-        console.log(req.body.password);
-        console.log(validPassword);
+
 
         if (!validPassword) {
             res
-                .status(404)
+                .status(401)
                 .json({ message: 'Incorrect email or password, please try again' });
             return;
         }
@@ -93,7 +90,7 @@ router.post('/login', async (req, res) => {
 
             res
                 .status(200)
-                .json({ user: dbUserData, message: 'You are now logged in!' });
+                .json({ user: userData, message: 'You are now logged in!' });
         });
     } catch (err) {
         res.status(400).json(err);
@@ -106,7 +103,6 @@ router.post('/login', async (req, res) => {
 // #################### Put - Update a User ###################
 
 router.put('/:id', async (req, res) => {
-    req.body.password = await bcrypt.hash(req.body.password, 10);
     try {
         const userData = await User.update(req.body, {
             where: {

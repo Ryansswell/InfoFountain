@@ -22,12 +22,14 @@ const userData = [
     password: 'pa$$word4',
   },
   {
-    username: 'shaggy05',
-    email: 'shaggy@shaggysemail.com',
-    password: 'pa$$word5',
-  },
+    "username": "ryan",
+    "email": "Ryan@email.com",
+    "password": "password12345"
+  }
 ];
 
-const seedUsers = () => User.bulkCreate(userData);
+const seedUsers = () => User.bulkCreate(userData, {
+  individualHooks: true
+});
 
 module.exports = seedUsers;
