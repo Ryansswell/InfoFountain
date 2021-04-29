@@ -45,3 +45,23 @@ body {
 .form-check-label {
   color: white;
 }
+
+.navbar navbar-expand-lg navbar navbar-light {
+  background: rgb(7, 61, 7);
+  color: white;
+}
+
+.navbar-nav {
+  background: rgb(7, 61, 7);
+  color: white;
+}
+
+.nav-item-nav-link {
+  background: rgb(7, 61, 7);
+  color: white;
+  margin: 10px;
+}
+
+#navbarDropdownMenuLink {
+  color: white;
+}
