@@ -5,7 +5,6 @@ const withAuth = require('../../utils/auth');
 router.post('/', withAuth, async (req, res) => {
   try {
     const newPost = await Post.create(req.body);
-
     req.session.save(() => {
       req.session.post_id = postData.id;
       req.session.logged_in = true;

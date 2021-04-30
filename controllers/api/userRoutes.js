@@ -3,6 +3,15 @@ const bcrypt = require('bcrypt');
 const { User, Comment, Post } = require('../../models');
 
 
+// // ##################### Go to Login Page ############################
+// // ##################### Go to Login Page ############################
+// // ##################### Go to Login Page ############################
+
+// router.get('/login', (req, res) => {
+
+//     res.render('login');
+// });
+
 
 // ####################### Get All Users #############################
 // ####################### Get All Users #############################
@@ -43,12 +52,12 @@ router.get('/:id', async (req, res) => {
         });
         const user = userData.get({ plain: true });
 
-        res.status(200).json(user);
+        // res.status(200).json(user);
 
-        // res.render('singleuser', {
-        //     user,
-        //     loggedIn: req.session.logged_in,
-        // });
+        res.render('viewuser', {
+            user,
+            loggedIn: req.session.logged_in,
+        });
 
     } catch (err) {
         res.status(500).json(err);
@@ -67,7 +76,7 @@ router.post('/', async (req, res) => {
 
         // Set up sessions with a 'loggedIn' variable set to `true`
         req.session.save(() => {
-            req.session.id = 1;
+            req.session.id = userData.user_id;
             req.session.loggedIn = true;
             res.status(200).json(userData);
         });
@@ -110,10 +119,16 @@ router.post('/login', async (req, res) => {
             req.session.user_id = userData.id;
             req.session.loggedIn = true;
             console.log(req.session.loggedIn);
+            const user = userData.get({ plain: true });
 
             res
                 .status(200)
-                .json({ user: userData, message: 'You are now logged in!' });
+                // .json({ user: userData, message: 'You are now logged in!' });
+
+                .render('userportal', {
+                    user,
+                    loggedIn: req.session.logged_in,
+                });
         });
     } catch (err) {
         res.status(400).json(err);
@@ -144,6 +159,33 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+
+// #################### Delete A User ###################
+// #################### Delete A User ###################
+// #################### Delete A User ###################
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const userData = await User.destroy({
+            where: {
+                id: req.params.id,
+                user_id: req.session.user_id,
+            },
+        });
+        if (!userData) {
+            res.status(404).json({ message: 'No user found with this id!' });
+            return;
+        }
+        res.status(200).json(userData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
+// ################ User Logout ##########################
+// ################ User Logout ##########################
+// ################ User Logout ##########################
 
 router.post('/logout', (req, res) => {
     if (req.session.logged_in) {
