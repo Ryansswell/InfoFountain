@@ -17,8 +17,8 @@ const seedDatabase = async () => {
   await seedComments();
   console.log('/n-----------Comments Seeded--------');
 
-
   process.exit(0);
+
 };
 
 seedDatabase();
