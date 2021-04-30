@@ -18,6 +18,7 @@ const seedDatabase = async () => {
   console.log('/n-----------Comments Seeded--------');
 
   process.exit(0);
+
 };
 
 seedDatabase();

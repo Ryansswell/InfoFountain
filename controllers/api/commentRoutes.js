@@ -10,16 +10,19 @@ const withAuth = require('../../utils/auth');
 router.get('/:id', async (req, res) => {
     try {
         const commentData = await Comment.findAll({
-            include: [{ model: Post }],
+            include: [{ model: Post }, { model: User }, { model: Comment }
+
+            ],
             where: { post_id: req.params.id }
         });
         // Serialize data so the template can read it
         const comments = commentData.map((comment) => comment.get({ plain: true }));
         // Pass serialized data and session flag into template
-        res.render('rendercomments', {
-            comments,
-            logged_in: req.session.logged_in
-        });
+        res.status(200).json(commentData);
+        // res.render('rendercomments', {
+        //     comments,
+        //     logged_in: req.session.logged_in
+        // });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -30,16 +33,20 @@ router.get('/:id', async (req, res) => {
 // ################# Add A Comment to a Post ########################
 // ################# Add A Comment to a Post ########################
 
-router.post('/:id', withAuth, async (req, res) => {
+router.post('/:id', async (req, res) => {
+    // include: [{ model: Post }, { model: User }];
+
     try {
+        req.body.user_id = req.session.userId;
         req.body.post_id = req.params.id;
         const newComment = req.body;
         const commentData = await Comment.create(newComment);
+        console.log(req.body.user_id);
 
         // Set up sessions with a 'loggedIn' variable set to `true`
 
         res.status(200).json(commentData);
-        // console.log(commentData);
+        console.log(commentData);
 
     } catch (err) {
         res.status(400).json(err);
@@ -80,6 +87,7 @@ router.delete('/:id', async (req, res) => {
         const commentData = await Comment.destroy({
             where: {
                 id: req.params.id,
+                // ############## Should Not be able to delete someone else's Comment
                 user_id: req.session.user_id,
             },
         });

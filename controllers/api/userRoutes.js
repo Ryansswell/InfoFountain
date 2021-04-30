@@ -3,84 +3,25 @@ const bcrypt = require('bcrypt');
 const { User, Comment, Post } = require('../../models');
 
 
-// // ##################### Go to Login Page ############################
-// // ##################### Go to Login Page ############################
-// // ##################### Go to Login Page ############################
-
-// router.get('/login', (req, res) => {
-
-//     res.render('login');
-// });
-
-
-// ####################### Get All Users #############################
-// ####################### Get All Users #############################
-// ####################### Get All Users #############################
-
-router.get('/', async (req, res) => {
-    try {
-        // Get all Users and JOIN with user data
-        const userData = await User.findAll({
-            attributes: { exclude: ['password'] },
-            include: [{ model: Post }]
-        });
-        // Serialize data so the template can read it
-        const users = userData.map((user) => user.get({ plain: true }));
-        // Pass serialized data and session flag into template
-        // res.status(200).json(userData);
-
-        res.render('renderusers', {
-            users,
-            loggedIn: req.session.loggedIn
-        });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-
-// ####################### Get User By ID #############################
-// ####################### Get User By ID #############################
-// ####################### Get User By ID #############################
-
-router.get('/:id', async (req, res) => {
-    try {
-        const userData = await User.findByPk(req.params.id, {
-            where: { id: req.params.id, user_id: req.session.user_id },
-            include: [{ model: Post }]
-
-        });
-        const user = userData.get({ plain: true });
-
-        // res.status(200).json(user);
-
-        res.render('viewuser', {
-            user,
-            loggedIn: req.session.logged_in,
-        });
-
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-
-// ############# Post - Create a New User ###################
-// ############# Post - Create a New User ###################
-// ############# Post - Create a New User ###################
+// ########################### Create a New User #############################
+// ########################### Create a New User #############################
+// ########################### Create a New User #############################
 
 router.post('/', async (req, res) => {
     try {
         const newUser = req.body;
         const userData = await User.create(newUser);
-
         // Set up sessions with a 'loggedIn' variable set to `true`
         req.session.save(() => {
-            req.session.id = userData.user_id;
+            req.session.email = userData.email;
+            req.session.userId = userData.id;
             req.session.loggedIn = true;
-            res.status(200).json(userData);
         });
+        const users = userData.get({ plain: true });
+        res
+            .status(200).json({ user: users, message: 'You are now logged in!' });
     } catch (err) {
+
         res.status(400).json(err);
     }
 });
@@ -94,7 +35,7 @@ router.post('/login', async (req, res) => {
     try {
         // First we find one user record with an email address that matches the one provided by the user logging in
         const userData = await User.findOne({ where: { email: req.body.email } });
-
+        console.log(userData);
         // If an account with that email address doesn't exist, the user will recieve an error message
         if (!userData) {
             res
@@ -105,8 +46,6 @@ router.post('/login', async (req, res) => {
         // If the user does exist, we will use the checkPassword() instance method to compare the user's input to the password stored in the record
         const validPassword = await userData.checkPassword(req.body.password);
         // If checkPassword() evaluates as false, the user will receive an error message
-
-
         if (!validPassword) {
             res
                 .status(401)
@@ -116,19 +55,15 @@ router.post('/login', async (req, res) => {
         // If checkPassword() evaluates as true, the user will be logged in
         //   Once the user successfully logs in, set up the sessions variable 'loggedIn'
         req.session.save(() => {
-            req.session.user_id = userData.id;
+            req.session.userId = userData.id;
+            req.session.email = userData.email;
             req.session.loggedIn = true;
             console.log(req.session.loggedIn);
-            const user = userData.get({ plain: true });
 
+            const user = userData.get({ plain: true });
             res
                 .status(200)
-                // .json({ user: userData, message: 'You are now logged in!' });
-
-                .render('userportal', {
-                    user,
-                    loggedIn: req.session.logged_in,
-                });
+                .json({ user: user, message: 'You are now logged in!' });
         });
     } catch (err) {
         res.status(400).json(err);
@@ -167,10 +102,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const userData = await User.destroy({
-            where: {
-                id: req.params.id,
-                user_id: req.session.user_id,
-            },
+            where: { id: req.params.id },
         });
         if (!userData) {
             res.status(404).json({ message: 'No user found with this id!' });
