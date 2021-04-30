@@ -71,55 +71,12 @@ router.post('/login', async (req, res) => {
 });
 
 
-// #################### Put - Update User Information ###################
-// #################### Put - Update User Information ###################
-// #################### Put - Update User Information ###################
-
-router.put('/:id', async (req, res) => {
-    try {
-        const userData = await User.update(req.body, {
-            where: {
-                id: req.params.id,
-            },
-        });
-
-        if (!userData) {
-            console.log(req.params.id);
-            res.status(404).json({ message: 'No user with this id!' });
-            return;
-        }
-        res.status(200).json(userData);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-
-// #################### Delete A User ###################
-// #################### Delete A User ###################
-// #################### Delete A User ###################
-
-router.delete('/:id', async (req, res) => {
-    try {
-        const userData = await User.destroy({
-            where: { id: req.params.id },
-        });
-        if (!userData) {
-            res.status(404).json({ message: 'No user found with this id!' });
-            return;
-        }
-        res.status(200).json(userData);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
 
 // ################ User Logout ##########################
 // ################ User Logout ##########################
 // ################ User Logout ##########################
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     if (req.session.logged_in) {
         req.session.destroy(() => {
             res.status(204).end();
