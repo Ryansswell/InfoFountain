@@ -21,9 +21,50 @@ router.get('/', async (req, res) => {
 
     res.render('homepage', {
       posts,
+
       loggedIn: req.session.loggedIn
     });
 
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// ####################### Get Post by ID #############################
+// ####################### Get Post by ID #############################
+// ####################### Get Post by ID #############################
+
+router.get('/posts/:id', async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, {
+      include: [{ model: User, attributes: ['username'] }]
+    });
+    const post = postData.get({ plain: true });
+    res.render('viewSingleArticle', {
+      post,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+// Use withAuth middleware to prevent access to route
+router.get('/userportal', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('userportal', {
+      ...user,
+      logged_in: true,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
