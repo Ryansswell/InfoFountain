@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
         req.session.save(() => {
             req.session.email = userData.email;
             req.session.userId = userData.id;
+            req.session.username = userData.username;
             req.session.loggedIn = true;
         });
         const users = userData.get({ plain: true });
@@ -35,7 +36,7 @@ router.post('/login', async (req, res) => {
     try {
         // First we find one user record with an email address that matches the one provided by the user logging in
         const userData = await User.findOne({ where: { email: req.body.email } });
-        console.log(userData);
+        // console.log(userData);
         // If an account with that email address doesn't exist, the user will recieve an error message
         if (!userData) {
             res
@@ -59,7 +60,7 @@ router.post('/login', async (req, res) => {
             req.session.userId = userData.id;
             req.session.email = userData.email;
             req.session.loggedIn = true;
-            console.log(req.session.loggedIn);
+            console.log(req.session);
 
             const user = userData.get({ plain: true });
             res

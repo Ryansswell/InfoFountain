@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
     });
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
-    console.log(posts)
 
     res.render('homepage', {
       posts,
@@ -49,7 +48,8 @@ router.get('/posts/:id', withAuth, async (req, res) => {
   }
 });
 
-router.get('/post', async (req, res) => {
+
+router.get('/create-post', (req, res) => {
   // const post = postData.get({ plain: true });
   res.render('create-post');
 });
@@ -69,11 +69,12 @@ router.get('/userportal', withAuth, async (req, res) => {
       include: [{ model: User, attributes: ['username'] }]
     });
 
+    // console.log(postData);
     // Serialize data so the template can read it
 
     const posts = postData.map((user) => user.get({ plain: true }));
 
-    console.log(req.session.username);
+    // console.log(posts);
 
     res
       // .status(200)
