@@ -8,7 +8,7 @@ header,
   border: none;
   padding: 0;
   cursor: pointer;
-  color: #1b89bc;
+  /* color: #1b89bc; */
   text-decoration: none;
   font-size: 100%;
 }
@@ -26,12 +26,17 @@ header,
 }
 
 .jumbotron {
-  background: rgb(7, 61, 7);
-  color: white;
+  height: 400px;
+  background: linear-gradient(rgb(255 255 255 / 45%), rgb(118 118 118 / 45%)),
+    url(./pexels-pixabay-36717.jpg);
+  max-height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
 }
 
-body {
-  background-image: './images/pexels-pixabay-36717.jpg';
+#body {
+  background-color: gray;
 }
 
 .form-row {
@@ -46,22 +51,6 @@ body {
   color: white;
 }
 
-.navbar navbar-expand-lg navbar navbar-light {
-  background: rgb(7, 61, 7);
-  color: white;
-}
-
-.navbar-nav {
-  background: rgb(7, 61, 7);
-  color: white;
-}
-
-.nav-item-nav-link {
-  background: rgb(7, 61, 7);
-  color: white;
-  margin: 10px;
-}
-
 #navbarDropdownMenuLink {
   color: white;
 }
@@ -70,7 +59,17 @@ body {
   color: white;
 }
 
-#Commentjumbotron {
-  background-image: url('./public/css/abstract-5035778_1920.jpg');
-  color: white;
+.headerJumbotron {
+  /* background-color: #615a5b; */
+  height: 400px;
+  background: linear-gradient(rgb(255 255 255 / 45%), rgb(118 118 118 / 45%)),
+    url(./binary-3402891_1280.jpg);
+  max-height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.mainBody {
+  background-color: rgb(63, 77, 77);
+  /* background-image: url(./abstract-5035778_1920.jpg); */
 }

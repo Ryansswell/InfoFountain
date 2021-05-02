@@ -1,56 +1,31 @@
-
-    <h1>Our Latest Articles!</h1>   
+<div class="container-fluid mainBody">
+    <h1 class="text-light">Our Latest Articles!</h1>   
   {{#each posts as |post|}}
-  <section class="card border border-dark">
-    
-    {{!-- <a href="/post/{{id}}"> --}}
-     
-      <header class="border-bottom border-dark w-100">
 
-        <a  href="/posts/{{id}}">Topic: {{title}}</a>
-
-      </header>
-      <body class="border-bottom border-light">
-        
-        <p class="text-dark">Post:{{post_text}}</p>
-        
-        
-      </body>
-      <br>
-      <footer>
-        <div class="border-bottom border-dark">
-        What People Are Saying About This Article:
-        </div>
-        
-        {{#each comments as |comment|}}
-
-        ---"{{comment_text}}"-{{user_id}}<br>
-        
-        
-        {{/each}}
-        <br>
-       
-
-        
-
-      </footer>
-      
-    {{!-- </a> --}}
-  </section>
-  
+  {{!-- ######################### --}}
+    <div class="card w-100" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/posts/{{id}}">Topic: {{title}}</a></h5>
+    {{!-- <h6 class="card-subtitle mb-2 text-muted"></h6> --}}
+        <p class="card-text">
+          Post: {{post_text}}
+        </p>
+        <p class="card-text">
+          {{#each comments as |comment|}}
+          ---"{{comment_text}}"-{{user_id}}<br>
+          {{/each}}
+        </p>
+      </div>
+    </div>
   {{/each}} 
-         
-       
-  
-   
-   
+
     <script src="/js/logout.js"></script>
    
      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  {{!-- </body>
-  
-  
-</html>
-   --}}
+
+</div>
+
+
+
