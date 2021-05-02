@@ -22,7 +22,7 @@
     <header class="container-fluid justify-space-between align-center p-2">
       <div class="row justify-content-end">
       <a class="btn btn-light pull-right m-1 LoginSignUpBtn" href="/login" role="button">Login or Sign Up!</a>
-      <a class="btn btn-light pull-right m-1 LogOutBtn" id="logout" href="#" role="button">Logout</a>
+      <a class="btn btn-light pull-right m-1 LogOutBtn" id="logout" href="/" role="button">Logout</a>
       </div>
       <h1 class "display-4">INFO FOUNTAIN</h1>  
 
@@ -41,9 +41,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/">Home</a>
-      <a class="nav-item nav-link" href="/users/userportal">UserPortal</a>
-      <a class="nav-item nav-link" href="#">I'm Feeling Lucky</a>
+      <a class="nav-item nav-link active  ml-4 mr-4" href="/">Home</a>
+      <a class="nav-item nav-link ml-4 mr-4" href="/userportal">UserPortal</a>
+      <a class="nav-item nav-link  ml-4 mr-4" href="/post">Post</a>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Tech Word of the day</button>
     </div>
   </div>
@@ -75,14 +75,6 @@
         </div>
       </nav>
   </div>
-  <nav>
-    <!-- Conditionally render login or logout links -->
-    {{#if loggedIn}}
-    <a href="/profile">profile</a> |
-    <button class="no-button" id="logout">logout</button>
-
-    {{/if}}
-  </nav>
   </header>
   <div class="container-fluid">
     <div class="row justify-content-md-left">

@@ -50,46 +50,23 @@ router.get('/posts/:id', async (req, res) => {
 });
 
 
-// Use withAuth middleware to prevent access to route
-// router.get('/userportal', withAuth, async (req, res) => {
-//   try {
-//     // Find the logged in user based on the session ID
-//     const userData = await User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Post }],
-//     });
-
-//     const user = userData.get({ plain: true });
-
-//     res.render('userportal', {
-//       ...user,
-//       logged_in: true,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-
 
 // ################### Get all Posts associated with that User for User Portal
 // ################### Get all Posts associated with that User for User Portal
 // ################### Get all Posts associated with that User for User Portal
 
-router.get('/users/userportal', async (req, res) => {
+router.get('/userportal', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       where: { user_id: req.session.userId },
       include: [{ model: User, attributes: ['username'] }]
     });
 
-    // console.log(postData);
-    // console.log(req.session.userId);
     // Serialize data so the template can read it
 
     const posts = postData.map((user) => user.get({ plain: true }));
 
-    console.log(posts);
+    console.log(req.session.username);
 
     res
       // .status(200)
@@ -99,8 +76,7 @@ router.get('/users/userportal', async (req, res) => {
       .render('userportal', {
         posts,
         loggedIn: req.session.loggedIn,
-
-
+        username: req.session.username,
       });
 
     // console.log(data);

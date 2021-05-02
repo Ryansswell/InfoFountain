@@ -55,6 +55,7 @@ router.post('/login', async (req, res) => {
         // If checkPassword() evaluates as true, the user will be logged in
         //   Once the user successfully logs in, set up the sessions variable 'loggedIn'
         req.session.save(() => {
+            req.session.username = userData.username;
             req.session.userId = userData.id;
             req.session.email = userData.email;
             req.session.loggedIn = true;
@@ -62,8 +63,8 @@ router.post('/login', async (req, res) => {
 
             const user = userData.get({ plain: true });
             res
-                .status(200).json({ user: user, message: 'You are now logged in!' });
-            // .redirect('../users/userportal')
+                // .status(200).json({ user: user, message: 'You are now logged in!' });
+                .redirect('/userportal');
 
 
         })
@@ -79,10 +80,13 @@ router.post('/login', async (req, res) => {
 // ################ User Logout ##########################
 // ################ User Logout ##########################
 
-router.get('/logout', (req, res) => {
-    if (req.session.logged_in) {
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+        // Remove the session variables
         req.session.destroy(() => {
-            res.status(204).end();
+            res
+                // .status(204).end();
+                .render('homepage');
         });
     } else {
         res.status(404).end();
