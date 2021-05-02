@@ -33,15 +33,22 @@ router.get('/', async (req, res) => {
 // ####################### Get Post by ID #############################
 // ####################### Get Post by ID #############################
 
-router.get('/posts/:id', withAuth, async (req, res) => {
+router.get('/posts/:id', async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ['username'] }]
-    });
-    const post = postData.get({ plain: true });
+    const postData = await Post.findByPk(req.params.id,
+      {
+        include: [{ model: User, attributes: ['username'] },
+        { model: Comment }
+        ],
+      }
+    );
+
+    const posts = postData.get({ plain: true });
+    console.log(posts);
+
     res.render('viewSingleArticle', {
-      post,
-      logged_in: req.session.logged_in,
+      posts,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -49,7 +56,7 @@ router.get('/posts/:id', withAuth, async (req, res) => {
 });
 
 
-router.get('/create-post', (req, res) => {
+router.get('/create-post', withAuth, (req, res) => {
   // const post = postData.get({ plain: true });
   res.render('create-post');
 });
