@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
 // ####################### Get Post by ID #############################
 // ####################### Get Post by ID #############################
 
-router.get('/posts/:id', async (req, res) => {
+router.get('/posts/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [{ model: User, attributes: ['username'] }]
@@ -48,6 +48,13 @@ router.get('/posts/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get('/post', async (req, res) => {
+  // const post = postData.get({ plain: true });
+  res.render('create-post');
+});
+
+
 
 
 
@@ -91,36 +98,15 @@ router.get('/userportal', withAuth, async (req, res) => {
 // ####################### Get Login Page #############################
 // ####################### Get Login Page #############################
 
+
 router.get('/login', (req, res) => {
+  // If a session exists, redirect the request to the homepage
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
   res.render('login');
 });
-
-// ####################### Get All Users #############################(Just for testing)
-// ####################### Get All Users #############################
-// ####################### Get All Users #############################
-
-// router.get('/allusers', async (req, res) => {
-//   try {
-//     // Get all Users and JOIN with user data
-//     const userData = await User.findAll({
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Post }, { model: Comment }]
-//     });
-//     // Serialize data so the template can read it
-//     const users = userData.map((user) => user.get({ plain: true }));
-//     // Pass serialized data and session flag into template
-//     // res.status(200).json(userData);
-
-//     res.render('renderusers', {
-//       users,
-//       loggedIn: req.session.loggedIn
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-
 
 
 module.exports = router;
