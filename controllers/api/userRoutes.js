@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
         req.session.save(() => {
             req.session.email = userData.email;
             req.session.userId = userData.id;
+            req.session.username = userData.username;
             req.session.loggedIn = true;
         });
         const users = userData.get({ plain: true });
@@ -35,7 +36,7 @@ router.post('/login', async (req, res) => {
     try {
         // First we find one user record with an email address that matches the one provided by the user logging in
         const userData = await User.findOne({ where: { email: req.body.email } });
-        console.log(userData);
+        // console.log(userData);
         // If an account with that email address doesn't exist, the user will recieve an error message
         if (!userData) {
             res
@@ -55,16 +56,19 @@ router.post('/login', async (req, res) => {
         // If checkPassword() evaluates as true, the user will be logged in
         //   Once the user successfully logs in, set up the sessions variable 'loggedIn'
         req.session.save(() => {
+            req.session.username = userData.username;
             req.session.userId = userData.id;
             req.session.email = userData.email;
             req.session.loggedIn = true;
-            console.log(req.session.loggedIn);
+            console.log(req.session);
 
             const user = userData.get({ plain: true });
             res
-                .status(200)
-                .json({ user: user, message: 'You are now logged in!' });
-        });
+                // .status(200).json({ user: user, message: 'You are now logged in!' });
+                .redirect('/userportal');
+
+
+        })
     } catch (err) {
         res.status(400).json(err);
     }
@@ -77,10 +81,13 @@ router.post('/login', async (req, res) => {
 // ################ User Logout ##########################
 // ################ User Logout ##########################
 
-router.get('/logout', (req, res) => {
-    if (req.session.logged_in) {
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+        // Remove the session variables
         req.session.destroy(() => {
-            res.status(204).end();
+            res
+                // .status(204).end();
+                .render('homepage');
         });
     } else {
         res.status(404).end();

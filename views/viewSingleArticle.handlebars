@@ -1,0 +1,50 @@
+
+    <h1>You Are currently viewing "{{posts.title}}" </h1>   
+
+    <p>{{posts.id}}</p>
+ 
+  <section class="card border border-dark">
+    
+    {{!-- <a href="/post/{{id}}"> --}}
+     
+      <header class="border-bottom border-dark w-100">
+
+        <a  href="/posts/{{id}}">Title: {{posts.title}}</a>
+
+      </header>
+      <body class="border-bottom border-light">
+        
+        <p class="text-dark">Post:{{posts.post_text}}</p>
+
+        <div class="border-bottom border-top border-dark ">
+        Join the Discussion!:
+        </div>
+
+        {{#each posts.comments as |comment|}}
+
+        <p>{{comment_text}}-{{user_id}}<br>
+        </p>
+        <br>
+        
+        {{/each}}
+        
+        
+      </body>
+      <br>
+      <footer>
+        
+        <div>
+
+  
+
+        
+        <br>
+        </div>
+       
+
+        
+
+      </footer>
+      
+    {{!-- </a> --}}
+  </section>

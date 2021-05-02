@@ -1,15 +1,31 @@
-<!-- Loop over each object in the projects array -->
-      <h1>Welcome to Your User Portal, {{post.username}} !</h1>
 
-<div class="row mb-4 project">
-  <div class="col-md-5">
-  </div>
-
-  <div class="col-md-7">
-    <p>{{user.username}}</p>
-    <p>{{user.email}}</p>
-    <p>{{user.user_text}}</p>
-  </div>
-
+<div>
+  <h2>Welcome to your User Portal, {{username}}!
 </div>
 
+
+
+
+  {{#each posts as |post|}}
+
+  {{!-- ######################### --}}
+    <div class="card w-100" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/posts/{{id}}">Topic: {{title}}</a></h5>
+    {{!-- <h6 class="card-subtitle mb-2 text-muted"></h6> --}}
+        <p class="card-text">
+          Post: {{post_text}}
+        </p>
+        <p class="card-text">
+          {{#each comments as |comment|}}
+          ---"{{comment_text}}"-{{user_id}}<br>
+          {{/each}}
+        </p>
+      </div>
+    </div>
+  {{/each}} 
+
+  
+
+
+<script src="./js/profile.js"></script>
