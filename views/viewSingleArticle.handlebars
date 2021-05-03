@@ -18,20 +18,23 @@
 
            <div class="container-fluid">
            </div>
-            
-            
-            <form class="form-group" id="submit" >
-              <textarea class="container-fluid w-50" post-id="{{id}}" id="comment_text" placeholder="Join the Discussion by Adding Your Comment Here"></textarea>
-                <button class="btn btn-primary" id="commentsubmit">Submit Comment</button>
-            </form>
         </div>
 
         <h4>Most Recent Comments:</h4>
         {{#each posts.comments as |comment|}}
-          <p>{{comment_text}}-{{user_id}}<br></p>
+          <p>--"{{comment_text}}"<br></p>
         {{/each}}
+
+
+        <form class="form-group" id="formCommentSubmit" >
+              <textarea class="container-fluid w-50" post-id="{{id}}" id="comment_text" placeholder="Join the Discussion by Adding Your Comment Here"></textarea>
+                <button class="btn btn-primary" id="commentsubmit">Submit Comment</button>
+            </form>
       </div>
 
   </section>
 
- <script src="./js/comment.js"></script>
+ <script src="/js/comment.js"></script>
+ <script>
+   console.log("HelloHello");
+ </script>

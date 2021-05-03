@@ -26,31 +26,6 @@ router.post('/', async (req, res) => {
 });
 
 
-
-
-// router.post('/', async (req, res) => {
-//     try {
-//         const newUser = req.body;
-//         const userData = await User.create(newUser);
-
-//         // Set up sessions with a 'loggedIn' variable set to `true`
-//         req.session.save(() => {
-//             req.session.loggedIn = true;
-//             req.session.username = userData.username;
-//             req.session.userId = userData.id;
-//             req.session.email = userData.email;
-//         });
-//         const users = userData.get({ plain: true });
-
-//         res.status(200).json({ user: users, message: 'You are now logged in!' });
-
-//     } catch (err) {
-
-//         res.status(400).json(err);
-//     }
-// });
-
-
 // #################### Post - User Login ###################
 // #################### Post - User Login ###################
 // #################### Post - User Login ###################
@@ -92,8 +67,6 @@ router.post('/login', async (req, res) => {
         res.status(400).json(err);
     }
 });
-
-
 
 
 // ################ User Logout ##########################

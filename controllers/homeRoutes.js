@@ -16,10 +16,8 @@ router.get('/', async (req, res) => {
     });
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
-
     res.render('homepage', {
       posts,
-
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
@@ -36,9 +34,7 @@ router.get('/posts/:id', withAuth, async (req, res) => {
     const postData = await Post.findByPk(req.params.id, {
       include: [{ model: User, attributes: ['username'] }, { model: Comment }],
     });
-
     const posts = postData.get({ plain: true });
-
     res.render('viewSingleArticle', {
       posts,
       loggedIn: req.session.loggedIn,
@@ -47,7 +43,6 @@ router.get('/posts/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 router.get('/create-post', withAuth, (req, res) => {
   // const post = postData.get({ plain: true });
   res.render('create-post');
@@ -65,27 +60,18 @@ router.get('/userportal', withAuth, async (req, res) => {
       include: [{ model: User, attributes: ['username'] }],
       order: [['date_created', 'DESC']],
     });
-    // console.log(postData);
-    // console.log(req.session.userId);
     // Serialize data so the template can read it
     const posts = postData.map((user) => user.get({ plain: true }));
-
-
     res
-      // .status(200)
-      // .json(posts);
       .render('userportal', {
         posts,
         loggedIn: req.session.loggedIn,
         username: req.session.username,
       });
-
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
-
 
 
 // ####################### Get Login Page #############################

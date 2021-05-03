@@ -1,4 +1,6 @@
-const commentButton = document.getElementById('commentsubmit');
+const commentButton = document.getElementById('formCommentSubmit');
+
+console.log(commentButton);
 
 const commentFormHandler = async (event) => {
     event.preventDefault();

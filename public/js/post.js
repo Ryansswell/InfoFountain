@@ -7,7 +7,7 @@ const postFormHandler = async (event) => {
 
     if (title && post_text) {
         // Send a POST request to the API endpoint
-        const response = await fetch('/api/posts/', {
+        const response = await fetch('/api/posts', {
             method: 'POST',
             body: JSON.stringify({ title, post_text }),
             headers: { 'Content-Type': 'application/json' },
@@ -24,5 +24,5 @@ const postFormHandler = async (event) => {
 
 
 document
-    .querySelector('#submit')
+    .querySelector('#postFormSubmit')
     .addEventListener('submit', postFormHandler);
