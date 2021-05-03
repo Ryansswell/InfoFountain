@@ -3,6 +3,11 @@ header,
   border-bottom: 1px solid #ccc;
 }
 
+.headerText {
+  background-color: black;
+  width: fit-content;
+}
+
 .no-button {
   background: none;
   border: none;
@@ -27,8 +32,9 @@ header,
 
 .jumbotron {
   height: 400px;
-  background: linear-gradient(rgb(255 255 255 / 45%), rgb(118 118 118 / 10%)),
-    url(./icarusFountain.jpg);
+
+  background: linear-gradient(rgb(0 0 0 / 60%), rgb(118 118 118 / 0%)),
+    url(./Fountain5.jpg);
   max-height: 100vh;
   background-size: cover;
   background-position: center;
@@ -62,6 +68,11 @@ header,
 }
 
 .mainBody {
-  background-color: rgb(63, 77, 77);
+  background: linear-gradient(
+    38deg,
+    rgba(83, 107, 173, 1) 23%,
+    rgba(203, 199, 199, 1) 100%
+  );
   padding: 10;
+  border-radius: 10px;
 }

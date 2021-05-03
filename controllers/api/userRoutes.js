@@ -13,14 +13,15 @@ router.post('/', async (req, res) => {
         const userData = await User.create(newUser);
         // Set up sessions with a 'loggedIn' variable set to `true`
         req.session.save(() => {
-            req.session.email = userData.email;
-            req.session.userId = userData.id;
             req.session.username = userData.username;
+            req.session.userId = userData.id;
+            req.session.email = userData.email;
             req.session.loggedIn = true;
         });
         const users = userData.get({ plain: true });
-        res
-            .status(200).json({ user: users, message: 'You are now logged in!' });
+
+        res.status(200).json({ user: users, message: 'You are now logged in!' });
+
     } catch (err) {
 
         res.status(400).json(err);
@@ -61,12 +62,9 @@ router.post('/login', async (req, res) => {
             req.session.email = userData.email;
             req.session.loggedIn = true;
 
-
             const user = userData.get({ plain: true });
-            res
-                // .status(200).json({ user: user, message: 'You are now logged in!' });
-                .redirect('/userportal');
 
+            res.status(200).json({ user: user, message: 'You are now logged in!' });
 
         })
     } catch (err) {

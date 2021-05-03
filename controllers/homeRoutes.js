@@ -57,12 +57,13 @@ router.get('/create-post', withAuth, (req, res) => {
 // ################### Get all Posts associated with that User for User Portal
 // ################### Get all Posts associated with that User for User Portal
 
-router.get('/userportal', withAuth, async (req, res) => {
+router.get('/userportal', async (req, res) => {
   try {
     const postData = await Post.findAll({
       where: { user_id: req.session.userId },
       include: [{ model: User, attributes: ['username'] }],
     });
+
 
 
     // Serialize data so the template can read it
