@@ -5,46 +5,33 @@
  
   <section class="card border border-dark" style="background-color: rgb(187, 201, 226)">
     
-    {{!-- <a href="/post/{{id}}"> --}}
-     
-      <header class="border-bottom border-dark w-100">
+      <div class="border-bottom border-gray w-100">
 
         <a style="color: white"style="color: white" href="/posts/{{id}}">Title: {{posts.title}}</a>
 
-      </header>
-      <body class="border-bottom border-light">
-        
-        <p class="text-dark">Post:{{posts.post_text}}</p>
+      </div>
 
-        <div class="border-bottom border-top border-dark ">
-        Join the Discussion!:
+      <div class="border-bottom border-light">
+
+        <div class="border-top border-dark ">
+        <h5>Article:</h5><p class="text-dark">{{posts.post_text}}</p>
+
+           <div class="container-fluid">
+           </div>
+            
+            
+            <form class="form-group" id="submit" >
+              <textarea class="container-fluid w-50" post-id="{{id}}" id="comment_text" placeholder="Join the Discussion by Adding Your Comment Here"></textarea>
+                <button class="btn btn-primary" id="commentsubmit">Submit Comment</button>
+            </form>
         </div>
 
+        <h4>Most Recent Comments:</h4>
         {{#each posts.comments as |comment|}}
-
-        <p>{{comment_text}}-{{user_id}}<br>
-        </p>
-        <br>
-        
+          <p>{{comment_text}}-{{user_id}}<br></p>
         {{/each}}
-        
-        
-      </body>
-      <br>
-      <footer>
-        
-        <div>
+      </div>
 
-  
-
-        
-        <br>
-        </div>
-       
-
-        
-
-      </footer>
-      
-    {{!-- </a> --}}
   </section>
+
+ <script src="./js/comment.js"></script>

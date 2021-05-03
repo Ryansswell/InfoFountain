@@ -31,14 +31,13 @@ router.get('/', async (req, res) => {
 // ####################### Get Post by ID #############################
 // ####################### Get Post by ID #############################
 
-router.get('/posts/:id', async (req, res) => {
+router.get('/posts/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [{ model: User, attributes: ['username'] }, { model: Comment }],
     });
 
     const posts = postData.get({ plain: true });
-    console.log(posts);
 
     res.render('viewSingleArticle', {
       posts,
@@ -54,6 +53,7 @@ router.get('/create-post', withAuth, (req, res) => {
   res.render('create-post');
 });
 
+
 // ################### Get all Posts associated with that User for User Portal
 // ################### Get all Posts associated with that User for User Portal
 // ################### Get all Posts associated with that User for User Portal
@@ -63,30 +63,30 @@ router.get('/userportal', withAuth, async (req, res) => {
     const postData = await Post.findAll({
       where: { user_id: req.session.userId },
       include: [{ model: User, attributes: ['username'] }],
+      order: [['date_created', 'DESC']],
     });
-
     // console.log(postData);
+    // console.log(req.session.userId);
     // Serialize data so the template can read it
-
     const posts = postData.map((user) => user.get({ plain: true }));
 
-    // console.log(posts);
 
     res
       // .status(200)
       // .json(posts);
-
       .render('userportal', {
         posts,
         loggedIn: req.session.loggedIn,
         username: req.session.username,
       });
 
-    // console.log(data);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
+
+
+
 
 // ####################### Get Login Page #############################
 // ####################### Get Login Page #############################
