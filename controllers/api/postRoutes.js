@@ -8,16 +8,11 @@ const withAuth = require('../../utils/auth');
 
 router.post('/', async (req, res) => {
   try {
-    req.body.user_id = req.session.userId;
-    req.body.username = req.session.username;
-
     const newPost = req.body;
+    newPost.username = req.session.username;
+    console.log("Helloooooooo");
     const postData = await Post.create(newPost);
-
-
     const posts = postData.get({ plain: true });
-    console.log(posts);
-
     res
       .status(200).json({ post: posts, message: 'Your new post has been submitted!' });
     // res.render('homepage', {
@@ -25,7 +20,6 @@ router.post('/', async (req, res) => {
     //   loggedIn: req.session.loggedIn
     // });
   } catch (err) {
-
     res.status(400).json(err);
   }
 });

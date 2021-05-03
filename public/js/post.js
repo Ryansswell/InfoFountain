@@ -5,9 +5,6 @@ const postFormHandler = async (event) => {
     const title = document.querySelector('#title').value.trim();
     const post_text = document.querySelector('#post_text').value.trim();
 
-    console.log(title);
-    console.log(post_text);
-
     if (title && post_text) {
         // Send a POST request to the API endpoint
         const response = await fetch('/api/posts', {
@@ -16,10 +13,9 @@ const postFormHandler = async (event) => {
             headers: { 'Content-Type': 'application/json' },
         });
 
-        console.log(response);
         if (response.ok) {
             // If successful, redirect the browser to the profile page
-            // document.location.replace('/userportal');
+            document.location.replace('/userportal');
         } else {
             alert(response.statusText);
         }

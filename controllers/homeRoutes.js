@@ -44,7 +44,6 @@ router.get('/posts/:id', async (req, res) => {
     );
 
     const posts = postData.get({ plain: true });
-    console.log(posts);
 
     res.render('viewSingleArticle', {
       posts,
@@ -76,12 +75,12 @@ router.get('/userportal', withAuth, async (req, res) => {
       include: [{ model: User, attributes: ['username'] }]
     });
 
-    // console.log(postData);
+
     // Serialize data so the template can read it
 
     const posts = postData.map((user) => user.get({ plain: true }));
 
-    // console.log(posts);
+
 
     res
       // .status(200)
