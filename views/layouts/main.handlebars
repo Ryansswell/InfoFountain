@@ -43,9 +43,9 @@
   </button>
   <div class="collapse navbar-collapse " id="navbarNavAltMarkup" style="background-color: rgb(187, 201, 226);">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active  ml-4 mr-4" style= "color: black" href="/">Home</a>
-      <a class="nav-item nav-link ml-4 mr-4" style= "color:black" href="/userportal">UserPortal</a>
-      <a class="nav-item nav-link  ml-4 mr-4" style= "color:black" href="/create-post">Post</a>
+      <a class="nav-item nav-link active  ml-4 mr-4 navItem" style= "color: black" href="/">Home</a>
+      <a class="nav-item nav-link ml-4 mr-4 navItem" style= "color:black" href="/userportal">UserPortal</a>
+      <a class="nav-item nav-link  ml-4 mr-4 navItem" style= "color:black" href="/create-post">Post</a>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Vote for a new Topic!</button>
     </div>
   </div>
@@ -77,15 +77,19 @@
   </div>
   </header>
   <div class="container-fluid" style="background-color: black;">
-    <div class="row justify-content-md-left">
-      <div class="col-12 w-100">
-
-        <div class="chart-container" style="position: relative; height:15vh; width:30vw">
+     <div class="chart-container" style="position: relative; height:15vh; width:30vw">
         <canvas id="myChart" display="flex" height="12px" width="40px"></canvas>
         </div>
-        
+
+    <div class="row justify-content-md-left">
+
+
+      <div class="col-12 w-100">
+
+       
         
         {{{ body }}}
+        
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -137,11 +141,13 @@ function removeData(chart) {
     });
     chart.update();
 }
-addEventListener()
+
 </script>
       
       </div>
     </div>
+
+    
 
     <!-- Render script for logged in users only -->
     {{#if logged_in}}
