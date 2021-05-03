@@ -24,11 +24,10 @@
       <a class="btn btn-light pull-right m-1 LoginSignUpBtn" href="/login" role="button">Login or Sign Up!</a>
       <a class="btn btn-light pull-right m-1 LogOutBtn" id="logout" href="/" role="button">Logout</a>
       </div>
-      <h1 class "display-4" style="color: white">INFO FOUNTAIN</h1>  
+      <h2 class="display-4 headerText">Welcome to the Info Fountain!</h2>  
 
-      <p class="lead headerText" style="color: white">"The larger the island of knowledge, the longer the shoreline of wonder"-Ralph Sockman</p>
+      <p class="lead headerText">"The larger the island of knowledge, the longer the shoreline of wonder"-Ralph Sockman</p>
       <hr class="my-4">
-      <p style="color: white">If this is your first time at our site, please sign up. Otherwise, login below.</p>
       <div>
 </div>
       <br>
@@ -37,15 +36,15 @@
     {{!-- ######################### NavBar ############################## --}}
     {{!-- ######################### NavBar ############################## --}}
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <nav class="navbar navbar-expand-lg navbar-light mainNav" >
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 
   </button>
-  <div class="collapse navbar-collapse " id="navbarNavAltMarkup" style="background-color: rgb(187, 201, 226);">
+  <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active  ml-4 mr-4 navItem" style= "color: black" href="/">Home</a>
-      <a class="nav-item nav-link ml-4 mr-4 navItem" style= "color:black" href="/userportal">UserPortal</a>
-      <a class="nav-item nav-link  ml-4 mr-4 navItem" style= "color:black" href="/create-post">Post</a>
+      <a class="nav-item nav-link active  ml-4 mr-4 navItem" href="/">Home</a>
+      <a class="nav-item nav-link ml-4 mr-4 navItem" href="/userportal">UserPortal</a>
+      <a class="nav-item nav-link  ml-4 mr-4 navItem" href="/create-post">Post</a>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Vote for a new Topic!</button>
     </div>
   </div>
@@ -76,10 +75,20 @@
       </nav>
   </div>
   </header>
-  <div class="container-fluid" style="background-color: black;">
-     <div class="chart-container" style="position: relative; height:15vh; width:30vw">
-        <canvas id="myChart" display="flex" height="12px" width="40px"></canvas>
-        </div>
+
+    
+
+        <h3 class="chartTitle">Number of Articles regarding Each Language:</h3>
+      <div class="chart-container" style="position: relative; height:30vh; width:30vw">
+        <canvas id="myChart" display="flex" height="18px" width="40px"></canvas>
+      </div>
+
+    
+
+
+  <div class="container-fluid">
+
+
 
     <div class="row justify-content-md-left">
 
@@ -89,6 +98,7 @@
        
         
         {{{ body }}}
+
         
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
