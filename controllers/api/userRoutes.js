@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
             req.session.userId = userData.id;
             req.session.email = userData.email;
             req.session.loggedIn = true;
-            console.log(req.session);
+
 
             const user = userData.get({ plain: true });
             res

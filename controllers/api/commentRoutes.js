@@ -7,7 +7,7 @@ const withAuth = require('../../utils/auth');
 // ################# Get All Comments For a Post ########################
 // ################# Get All Comments For a Post ########################
 
-router.get('/:id', async (req, res) => {
+router.post('/:id', async (req, res) => {
     try {
         const commentData = await Comment.findAll({
             include: [{ model: Post }, { model: User }, { model: Comment }
@@ -33,24 +33,23 @@ router.get('/:id', async (req, res) => {
 // ################# Add A Comment to a Post ########################
 // ################# Add A Comment to a Post ########################
 
-router.post('/', (req, res) => {
-    // include: [{ model: Post }, { model: User }];
-    console.log(req.body);
-    // try {
-    //     const newComment = req.body;
-    //     newComment.user_id = req.session.userId;
-    //     newComment.post_id = req.params.id;
+router.post('/:id', async (req, res) => {
+    try {
+        const commentData = await Comment.create(req.body, {
+            where: {
+                post_id: req.params.id,
+            },
+        });
 
-    //     console.log(newComment);
-
-    //     const commentData = await Comment.create(req.body);
-
-
-    //     res.status(200).json(commentData);
-
-    // } catch (err) {
-    //     res.status(400).json(err);
-    // }
+        if (!commentData) {
+            console.log(req.params.id);
+            res.status(404).json({ message: 'No comment with this id!' });
+            return;
+        }
+        res.status(200).json(commentData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 

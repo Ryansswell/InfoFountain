@@ -6,107 +6,41 @@ const withAuth = require('../../utils/auth');
 
 
 
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
   try {
     const newPost = req.body;
     newPost.username = req.session.username;
-    console.log("Helloooooooo");
+
     const postData = await Post.create(newPost);
     const posts = postData.get({ plain: true });
     res
       .status(200).json({ post: posts, message: 'Your new post has been submitted!' });
-    // res.render('homepage', {
-    //   posts,
-    //   loggedIn: req.session.loggedIn
-    // });
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
 
-// router.delete('/:id', withAuth, async (req, res) => {
-//   try {
-//     const postData = await Post.destroy({
-//       where: {
-//         id: req.params.id,
-//         post_id: req.session.post_id,
-//       },
-//     });
-
-//     if (!postData) {
-//       res.status(404).json({ message: 'No post found with this id!' });
-//       return;
-//     }
-
-//     res.status(200).json(postData);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-// router.post('/commentPost', withAuth, async (req, res) => {
-//   try {
-//     const commentPost = await Comment.create(req.body);
-
-//     req.session.save(() => {
-//       req.session.commentPost_id = commentPost.id;
-//       req.session.logged_in = true;
-//     });
-
-//     res.status(200).json(commentPost);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+router.post('/:id', withAuth, async (req, res) => {
+  console.log(req.session);
+  try {
+    const commentData = await Comment.create(req.body, {
+      where: { post_id: req.params.id }
+    });
+    commentData.post_id = req.params.id;
+    commentData.user_id = req.session.userId
+    // Serialize data so the template can read it
+    const comments = commentData.get({ plain: true });
+    // Pass serialized data and session flag into template
+    res.status(200).json(comments);
+    // res.render('rendercomments', {
+    //     comments,
+    //     logged_in: req.session.logged_in
+    // });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
-// router.delete('/comment/:id', withAuth, async (req, res) => {
-//   try {
-//     const postDelete = await Comment.destroy({
-//       where: {
-//         id: req.params.id,
-//         post_id: req.session.postdelete_id,
-//       },
-//     });
-
-//     if (!postDelete) {
-//       res.status(404).json({ message: 'This post is deleted!' });
-//       return;
-//     }
-
-//     res.status(200).json(postDelete);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-// router.post('/commentPost', withAuth, async (req, res) => {
-//   try {
-//     const commentPost = await Comment.create(req.body);
-//     req.session.save(() => {
-//       req.session.commentPost_id = commentPost.id;
-//       req.session.logged_in = true;
-//     });
-//     res.status(200).json(commentPost);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
-// router.delete('/comment/:id', withAuth, async (req, res) => {
-//   try {
-//     const postDelete = await Comment.destroy({
-//       where: {
-//         id: req.params.id,
-//         post_id: req.session.postdelete_id,
-//       },
-//     });
-//     if (!postDelete) {
-//       res.status(404).json({ message: 'This post is deleted!' });
-//       return;
-//     }
-//     res.status(200).json(postDelete);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 module.exports = router;
