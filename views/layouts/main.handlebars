@@ -80,9 +80,10 @@
     <div class="row justify-content-md-left">
       <div class="col-12 w-100">
 
-        <div>
-        <canvas id="myChart" display="flex" height="200px" width="400px"></canvas>
+        <div class="chart-container" style="position: relative; height:15vh; width:30vw">
+        <canvas id="myChart" display="flex" height="12px" width="40px"></canvas>
         </div>
+        
         
         {{{ body }}}
 <script>
@@ -121,7 +122,23 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-</script> --}}
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+addEventListener()
+</script>
       
       </div>
     </div>
