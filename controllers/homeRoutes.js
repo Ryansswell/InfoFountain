@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-
 // ####################### Get All Posts #############################
 // ####################### Get All Posts #############################
 // ####################### Get All Posts #############################
@@ -21,9 +20,8 @@ router.get('/', async (req, res) => {
     res.render('homepage', {
       posts,
 
-      loggedIn: req.session.loggedIn
+      loggedIn: req.session.loggedIn,
     });
-
   } catch (err) {
     res.status(500).json(err);
   }
@@ -35,13 +33,9 @@ router.get('/', async (req, res) => {
 
 router.get('/posts/:id', async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id,
-      {
-        include: [{ model: User, attributes: ['username'] },
-        { model: Comment }
-        ],
-      }
-    );
+    const postData = await Post.findByPk(req.params.id, {
+      include: [{ model: User, attributes: ['username'] }, { model: Comment }],
+    });
 
     const posts = postData.get({ plain: true });
     console.log(posts);
@@ -55,15 +49,10 @@ router.get('/posts/:id', async (req, res) => {
   }
 });
 
-
 router.get('/create-post', withAuth, (req, res) => {
   // const post = postData.get({ plain: true });
   res.render('create-post');
 });
-
-
-
-
 
 // ################### Get all Posts associated with that User for User Portal
 // ################### Get all Posts associated with that User for User Portal
@@ -73,7 +62,7 @@ router.get('/userportal', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
       where: { user_id: req.session.userId },
-      include: [{ model: User, attributes: ['username'] }]
+      include: [{ model: User, attributes: ['username'] }],
     });
 
     // console.log(postData);
@@ -87,7 +76,6 @@ router.get('/userportal', withAuth, async (req, res) => {
       // .status(200)
       // .json(posts);
 
-
       .render('userportal', {
         posts,
         loggedIn: req.session.loggedIn,
@@ -95,17 +83,14 @@ router.get('/userportal', withAuth, async (req, res) => {
       });
 
     // console.log(data);
-
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-
 // ####################### Get Login Page #############################
 // ####################### Get Login Page #############################
 // ####################### Get Login Page #############################
-
 
 router.get('/login', (req, res) => {
   // If a session exists, redirect the request to the homepage
@@ -115,6 +100,5 @@ router.get('/login', (req, res) => {
   }
   res.render('login');
 });
-
 
 module.exports = router;

@@ -17,33 +17,33 @@
     {{!-- ########################### Header ########################## --}}
     {{!-- ########################### Header ########################## --}}
 
-<body class="container-fluid">
+<body class="container-fluid" style="background-color: black;">
   <div class="jumbotron" id="hero" >
     <header class="container-fluid justify-space-between align-center p-2">
       <div class="row justify-content-end">
       <a class="btn btn-light pull-right m-1 LoginSignUpBtn" href="/login" role="button">Login or Sign Up!</a>
       <a class="btn btn-light pull-right m-1 LogOutBtn" id="logout" href="/" role="button">Logout</a>
       </div>
-      <h1 class "display-4">INFO FOUNTAIN</h1>  
+      <h1 class "display-4" style="color: white">INFO FOUNTAIN</h1>  
 
-      <p class="lead">"The larger the island of knowledge, the longer the shoreline of wonder"-Ralph Sockman</p>
+      <p class="lead" style="color: white">"The larger the island of knowledge, the longer the shoreline of wonder"-Ralph Sockman</p>
       <hr class="my-4">
-      <p>If this is your first time at our site, please sign up. Otherwise, login below.</p>
+      <p style="color: white">If this is your first time at our site, please sign up. Otherwise, login below.</p>
       <br>
 
     {{!-- ######################### NavBar ############################## --}}
     {{!-- ######################### NavBar ############################## --}}
     {{!-- ######################### NavBar ############################## --}}
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="background-color: rgb(187, 201, 226);">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active  ml-4 mr-4" href="/">Home</a>
-      <a class="nav-item nav-link ml-4 mr-4" href="/userportal">UserPortal</a>
-      <a class="nav-item nav-link  ml-4 mr-4" href="/create-post">Post</a>
+      <a class="nav-item nav-link active  ml-4 mr-4" style= "color: black" href="/">Home</a>
+      <a class="nav-item nav-link ml-4 mr-4" style= "color:black" href="/userportal">UserPortal</a>
+      <a class="nav-item nav-link  ml-4 mr-4" style= "color:black" href="/create-post">Post</a>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Tech Word of the day</button>
     </div>
   </div>
@@ -76,7 +76,7 @@
       </nav>
   </div>
   </header>
-  <div class="container-fluid">
+  <div class="container-fluid" style="background-color: black;">
     <div class="row justify-content-md-left">
       <div class="col-12 w-100">
         {{{ body }}}
