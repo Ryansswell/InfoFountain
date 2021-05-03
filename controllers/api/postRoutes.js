@@ -23,13 +23,15 @@ router.post('/', withAuth, async (req, res) => {
 
 
 router.post('/:id', withAuth, async (req, res) => {
-  console.log(req.session);
+
+  console.log("HELLLLLOOOOOOOO");
   try {
     const commentData = await Comment.create(req.body, {
       where: { post_id: req.params.id }
     });
+
     commentData.post_id = req.params.id;
-    commentData.user_id = req.session.userId
+    commentData.user_id = req.session.user_id
     // Serialize data so the template can read it
     const comments = commentData.get({ plain: true });
     // Pass serialized data and session flag into template

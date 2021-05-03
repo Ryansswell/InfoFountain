@@ -17,12 +17,12 @@
         <h5>Article:</h5><p class="text-dark">{{posts.post_text}}</p>
 
            <div class="container-fluid">
-              <textarea class="container-fluid w-50" id="comment_text" placeholder="Join the Discussion by Adding Your Comment Here"></textarea>
            </div>
             
             
-            <form class="form-group" id="submit">
-                <button class="btn btn-primary" id="submit">Submit Comment</button>
+            <form class="form-group" id="submit" >
+              <textarea class="container-fluid w-50" post-id="{{id}}" id="comment_text" placeholder="Join the Discussion by Adding Your Comment Here"></textarea>
+                <button class="btn btn-primary" id="commentsubmit">Submit Comment</button>
             </form>
         </div>
 

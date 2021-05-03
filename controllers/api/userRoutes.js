@@ -59,7 +59,6 @@ router.post('/login', async (req, res) => {
     try {
         // First we find one user record with an email address that matches the one provided by the user logging in
         const userData = await User.findOne({ where: { email: req.body.email } });
-        // console.log(userData);
         // If an account with that email address doesn't exist, the user will recieve an error message
         if (!userData) {
             res
