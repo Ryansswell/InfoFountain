@@ -22,7 +22,7 @@ const seedDatabase = async (req, res) => {
     process.exit(0);
 
   } catch (err) {
-    res.status(500).json(err);
+
   }
 }
 
