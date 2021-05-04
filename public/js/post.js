@@ -3,13 +3,13 @@ const postFormHandler = async (event) => {
 
     // Collect values from the login form
     const title = document.querySelector('#title').value.trim();
-    const post_text = document.querySelector('#post_text').value.trim();
+    const postText = document.querySelector('#postText').value.trim();
 
-    if (title && post_text) {
+    if (title && postText) {
         // Send a POST request to the API endpoint
         const response = await fetch('/api/posts', {
             method: 'POST',
-            body: JSON.stringify({ title, post_text }),
+            body: JSON.stringify({ title, postText }),
             headers: { 'Content-Type': 'application/json' },
         });
 

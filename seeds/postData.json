@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Titanic",
+    "postText": "Titanic was a long movie Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user_id": 4
+  },
+  {
+    "title": "Winter is Coming",
+    "postText": "The wall has been breached, Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user_id": 2
+  },
+  {
+    "title": "Get to da Choppa!",
+    "postText": "Hasta la vista, baby,  Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user_id": 3
+  },
+  {
+    "title": "Sharkweek is Here!",
+    "postText": "We are gonna need a bigger boat, Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user_id": 5
+  },
+  {
+    "title": "Dogs are Good",
+    "postText": "Woof woof, Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user_id": 1
+  }
+]
