@@ -28,7 +28,7 @@ router.post('/:id', withAuth, async (req, res) => {
 
     const commentData = req.body;
     commentData.post_id = req.params.id;
-    commentData.user_id = req.session.user_id
+    commentData.user_id = req.session.userId
 
 
     const newComment = await Comment.create(commentData, {

@@ -13,13 +13,13 @@ router.post('/', async (req, res) => {
         const userData = await User.create(newUser);
 
         req.session.save(() => {
-            req.session.user_id = userData.id;
+            req.session.userId = userData.id;
             req.session.loggedIn = true;
             req.session.username = userData.username;
             req.session.email = userData.email;
-
             res.status(200).json(req.session);
         });
+
     } catch (err) {
         res.status(400).json(err);
     }
