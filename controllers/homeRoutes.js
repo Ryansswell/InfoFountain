@@ -59,6 +59,7 @@ router.get('/userportal', withAuth, async (req, res) => {
       where: { user_id: req.session.userId },
       include: [{ model: User, attributes: ['username'] }],
       order: [['date_created', 'DESC']],
+
     });
     // Serialize data so the template can read it
     const posts = postData.map((user) => user.get({ plain: true }));

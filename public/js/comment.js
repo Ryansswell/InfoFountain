@@ -9,7 +9,7 @@ const commentFormHandler = async (event) => {
     // Collect values from the comment form
     const comment_text = document.querySelector('#comment_text').value.trim();
 
-    console.log("YOYOHELO");
+
     if (comment_text) {
         // Send a POST request to the API endpoint
         const response = await fetch(`/api/posts/${id}`, {
