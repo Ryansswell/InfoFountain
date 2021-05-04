@@ -6,23 +6,25 @@ const seedPosts = require('./postseeds');
 const seedComments = require('./seedscomments');
 
 const seedDatabase = async () => {
-  await sequelize.sync({ force: true });
 
-  await seedUsers();
-  console.log('/n-----------Users Seeded--------');
+  try {
+    await sequelize.sync({ force: true });
 
-  await seedPosts();
-  console.log('/n-----------Posts Seeded--------');
+    await seedUsers();
+    console.log('/n-----------Users Seeded--------');
 
-  await seedComments();
-  console.log('/n-----------Comments Seeded--------');
+    await seedPosts();
+    console.log('/n-----------Posts Seeded--------');
 
-  process.exit(0);
+    await seedComments();
+    console.log('/n-----------Comments Seeded--------');
 
-};
+    process.exit(0);
 
-seedDatabase();
-
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
 
 
 seedDatabase();
